@@ -1,2 +1,49 @@
 # QuickStart-Coding-Challenges
+
 Quickstart Coding Challenges
+
+
+[![Java CI with Maven](https://github.com/shortthirdman/Quickstart-Challenges/actions/workflows/maven.yml/badge.svg?event=workflow_dispatch)](https://github.com/shortthirdman/Quickstart-Challenges/actions/workflows/maven.yml)
+
+![GitHub commit activity](https://img.shields.io/github/commit-activity/w/shortthirdman/Quickstart-Challenges)	![GitHub](https://img.shields.io/github/license/shortthirdman/Quickstart-Challenges)	![GitHub last commit](https://img.shields.io/github/last-commit/shortthirdman/Quickstart-Challenges)
+
+All Java solutions for various challenges presented during interviews for software development positions.
+
+- [CodeSignal](https://app.codesignal.com)
+- [LeetCode](https://leetcode.com)
+- [HackerRank](https://hackerrank.com)
+- [Codility](https://app.codility.com)
+
+## Requirements
+
+- Apache Maven 3.9.x
+- Java 21
+- JetBrains IntelliJ IDEA (Community/Ultimate)
+
+
+## Run and Test
+
+`mvn clean install test`
+
+## Contributing
+
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+[![first-timers-only](https://img.shields.io/badge/first--timers--only-friendly-blue.svg?style=flat-square)](https://www.firsttimersonly.com/)
+
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+Please make sure to update tests as appropriate.
+
+**Working on your first Pull Request?** You can learn how from this *free* series [How to Contribute to an Open Source Project on GitHub](https://kcd.im/pull-request)
+
+## References
+
+- [Running GitHub Actions Locally: A Complete Guide for Windows, Mac, and Linux Users](https://medium.com/debasishkumardas5/running-github-actions-locally-a-complete-guide-for-windows-mac-and-linux-users-34c45999c7cd)
+
+- [How to test GitHub Actions locally?](https://www.browserstack.com/guide/test-github-actions-locally)
+
+- [Getting "Skipping JaCoCo execution due to missing execution data file" upon executing JaCoCo](https://stackoverflow.com/questions/18107375/getting-skipping-jacoco-execution-due-to-missing-execution-data-file-upon-exec)
+
+## License
+
+[Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0)
