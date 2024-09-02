@@ -3,9 +3,9 @@
 Quickstart Coding Challenges
 
 
-[![Java CI with Maven](https://github.com/shortthirdman/Quickstart-Challenges/actions/workflows/maven.yml/badge.svg?event=workflow_dispatch)](https://github.com/shortthirdman/Quickstart-Challenges/actions/workflows/maven.yml)
+[![Java CI with Maven](https://github.com/shortthirdman/QuickStart-Coding-Challenges/actions/workflows/maven.yml/badge.svg?event=workflow_dispatch)](https://github.com/shortthirdman/QuickStart-Coding-Challenges/actions/workflows/maven.yml)
 
-![GitHub commit activity](https://img.shields.io/github/commit-activity/w/shortthirdman/Quickstart-Challenges)	![GitHub](https://img.shields.io/github/license/shortthirdman/Quickstart-Challenges)	![GitHub last commit](https://img.shields.io/github/last-commit/shortthirdman/Quickstart-Challenges)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/w/shortthirdman/QuickStart-Coding-Challenges)	![GitHub](https://img.shields.io/github/license/shortthirdman/QuickStart-Coding-Challenges)	![GitHub last commit](https://img.shields.io/github/last-commit/shortthirdman/QuickStart-Coding-Challenges)
 
 All Java solutions for various challenges presented during interviews for software development positions.
 
