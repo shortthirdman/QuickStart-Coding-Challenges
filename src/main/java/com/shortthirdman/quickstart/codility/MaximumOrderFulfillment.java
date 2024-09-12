@@ -23,6 +23,9 @@ public class MaximumOrderFulfillment {
 
     public int maxOrdersFulfilled(int[] D, int[] C, int P) {
 
+        if (P < 0) {
+            throw new IllegalArgumentException("P can not be negative or less than zero");
+        }
         boolean allDistancesArePositive = Arrays.stream(D)
                 .boxed()
                 .allMatch(isGreaterThanZero);

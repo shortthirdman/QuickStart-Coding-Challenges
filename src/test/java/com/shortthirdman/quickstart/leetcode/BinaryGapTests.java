@@ -1,23 +1,20 @@
 package com.shortthirdman.quickstart.leetcode;
 
-import com.shortthirdman.quickstart.BaseTestsInitializer;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class BinaryGapTests implements BaseTestsInitializer {
+public class BinaryGapTests {
 
     protected BinaryGap app;
 
-    @Override
     @BeforeEach
     public void setUp() {
         app = new BinaryGap();
     }
 
-    @Override
     @AfterEach
     public void tearDown() {
         app = null;

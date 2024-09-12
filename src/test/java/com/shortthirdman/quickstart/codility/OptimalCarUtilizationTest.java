@@ -46,7 +46,8 @@ class OptimalCarUtilizationTest {
     // Test where some cars have more seats than people
     @Test
     void testExcessSeats() {
-        assertEquals(2, app.optimizeCarsUsed(new int[]{1, 2, 2}, new int[]{3, 5, 3}));
+        assertNotEquals(2, app.optimizeCarsUsed(new int[]{1, 2, 2}, new int[]{3, 5, 3}));
+        assertEquals(1, app.optimizeCarsUsed(new int[]{1, 2, 2}, new int[]{3, 5, 3}));
     }
 
     // Test with no people but with cars (should return 0 cars needed)
@@ -64,7 +65,7 @@ class OptimalCarUtilizationTest {
     // Test with more people than total seats available (should throw exception)
     @Test
     void testMorePeopleThanSeats() {
-        assertThrows(IllegalArgumentException.class, () -> app.optimizeCarsUsed(new int[]{3, 4, 5}, new int[]{2, 2, 3}));
+        assertThrows(IllegalStateException.class, () -> app.optimizeCarsUsed(new int[]{3, 4, 5}, new int[]{2, 2, 3}));
     }
 
     // Test with all zero seats and people
@@ -82,7 +83,8 @@ class OptimalCarUtilizationTest {
     // Test with cars having more seats than necessary
     @Test
     void testCarsWithExcessSeats() {
-        assertEquals(2, app.optimizeCarsUsed(new int[]{5, 4}, new int[]{10, 5}));
+        assertNotEquals(2, app.optimizeCarsUsed(new int[]{5, 4}, new int[]{10, 5}));
+        assertEquals(1, app.optimizeCarsUsed(new int[]{5, 4}, new int[]{10, 5}));
     }
 
     // Test with mixed scenarios

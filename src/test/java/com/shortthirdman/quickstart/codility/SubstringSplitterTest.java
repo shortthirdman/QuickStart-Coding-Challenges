@@ -35,7 +35,7 @@ class SubstringSplitterTest {
     // Test with a string with characters repeating immediately
     @Test
     void testImmediateRepetition() {
-        assertEquals(4, app.splitSubstrings("abba"));
+        assertEquals(2, app.splitSubstrings("abba"));
     }
 
     // Test with a string with characters repeating non-adjacently
@@ -83,7 +83,8 @@ class SubstringSplitterTest {
     // Test with longer string with multiple repetitions
     @Test
     void testLongerStringWithMultipleRepetitions() {
-        assertEquals(4, app.splitSubstrings("abcadefagh"));
+        assertEquals(3, app.splitSubstrings("abcadefagh"));
+        assertNotEquals(4, app.splitSubstrings("abcadefagh"));
     }
 
     // Test with non-repeating characters throughout the string
@@ -95,18 +96,19 @@ class SubstringSplitterTest {
     // Test with repetitive pattern string
     @Test
     void testRepetitivePatternString() {
-        assertEquals(6, app.splitSubstrings("abcabcabc"));
+        assertNotEquals(6, app.splitSubstrings("abcabcabc"));
+        assertEquals(3, app.splitSubstrings("abcabcabc"));
     }
 
     // Test with special case string where each character repeats after every alternate character
     @Test
     void testAlternateRepeatingCharacters() {
-        assertEquals(3, app.splitSubstrings("abababab"));
+        assertEquals(4, app.splitSubstrings("abababab"));
     }
 
     // Test with long string where every character repeats after some distance
     @Test
     void testLongStringWithRepeats() {
-        assertEquals(10, app.splitSubstrings("abacdebfgbhijbk"));
+        assertEquals(4, app.splitSubstrings("abacdebfgbhijbk"));
     }
 }

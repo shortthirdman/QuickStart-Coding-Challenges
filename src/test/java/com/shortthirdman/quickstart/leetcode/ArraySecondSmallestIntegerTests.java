@@ -1,6 +1,5 @@
 package com.shortthirdman.quickstart.leetcode;
 
-import com.shortthirdman.quickstart.BaseTestsInitializer;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,11 +7,10 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-public class ArraySecondSmallestIntegerTests implements BaseTestsInitializer {
+public class ArraySecondSmallestIntegerTests {
 
     protected ArraySecondSmallestInteger app;
 
-    @Override
     @BeforeEach
     public void setUp() {
         app = new ArraySecondSmallestInteger();
@@ -42,7 +40,6 @@ public class ArraySecondSmallestIntegerTests implements BaseTestsInitializer {
         assertEquals(-1, app.findUsingMinHeap(new int[]{5, 5, 5, 5, 5}));
     }
 
-    @Override
     @AfterEach
     public void tearDown() {
 

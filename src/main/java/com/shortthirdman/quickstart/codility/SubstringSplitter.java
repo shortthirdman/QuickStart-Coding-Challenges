@@ -18,7 +18,11 @@ import java.util.Set;
 public class SubstringSplitter {
 
     public int splitSubstrings(String S) {
-        if (S == null || S.isEmpty()) {
+        if (S == null) {
+            throw new NullPointerException("String input can not be null or empty");
+        }
+
+        if (S.isEmpty()) {
             return 0;
         }
 
