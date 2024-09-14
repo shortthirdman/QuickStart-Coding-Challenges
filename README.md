@@ -21,9 +21,11 @@ All Java solutions for various challenges presented during interviews for softwa
 - JetBrains IntelliJ IDEA (Community/Ultimate)
 
 
-## Run and Test
+## Run, Test and Code Coverage
 
 `mvn clean install test`
+
+`mvn jacoco:prepare-agent clean test jacoco:report`
 
 ## Contributing
 
