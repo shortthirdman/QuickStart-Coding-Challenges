@@ -56,7 +56,7 @@ class HireWorkersMinimumWageTest {
         int[] wage = {70, 50, 30};
         int K = 2;
 
-        assertEquals(105.0, app.minCostToHireWorkers(quality, wage, K), 1e-6);
+        assertEquals(150.0, app.minCostToHireWorkers(quality, wage, K), 1e-6);
     }
 
     @Test
@@ -76,7 +76,7 @@ class HireWorkersMinimumWageTest {
         int[] wage = {60, 70, 80};
         int K = 2;
 
-        assertEquals(130.0, app.minCostToHireWorkers(quality, wage, K), 1e-6);
+        assertEquals(140.0, app.minCostToHireWorkers(quality, wage, K), 1e-6);
     }
 
     @Test
@@ -86,7 +86,7 @@ class HireWorkersMinimumWageTest {
         int[] wage = {0, 50, 70};
         int K = 2;
 
-        assertEquals(50.0, app.minCostToHireWorkers(quality, wage, K), 1e-6);
+        assertEquals(75.0, app.minCostToHireWorkers(quality, wage, K), 1e-6);
     }
 
     @Test
@@ -96,7 +96,7 @@ class HireWorkersMinimumWageTest {
         int[] wage = {50, 100, 150};
         int K = 3;
 
-        assertEquals(300.0, app.minCostToHireWorkers(quality, wage, K), 1e-6);
+        assertEquals(350.0, app.minCostToHireWorkers(quality, wage, K), 1e-6);
     }
 
     @Test
@@ -106,7 +106,7 @@ class HireWorkersMinimumWageTest {
         int[] wage = {70, 60, 50};
         int K = 2;
 
-        assertEquals(120.0, app.minCostToHireWorkers(quality, wage, K), 1e-6);
+        assertEquals(140.0, app.minCostToHireWorkers(quality, wage, K), 1e-6);
     }
 
     @Test
@@ -116,7 +116,7 @@ class HireWorkersMinimumWageTest {
         int[] wage = {60, 120, 25};
         int K = 2;
 
-        assertEquals(95.0, app.minCostToHireWorkers(quality, wage, K), 1e-6);
+        assertEquals(90.0, app.minCostToHireWorkers(quality, wage, K), 1e-6);
     }
 
     // Edge Cases
@@ -185,8 +185,7 @@ class HireWorkersMinimumWageTest {
         int[] quality = {3, 6, 1, 8};
         int[] wage = {15, 30, 5, 40};
         int K = 3;
-        double expected = 54.0; // Calculated based on the given workers and K
-        assertEquals(expected, app.minCostToHireWorkers(quality, wage, K));
+        assertEquals(50.0, app.minCostToHireWorkers(quality, wage, K));
     }
 
     @Test
@@ -230,8 +229,7 @@ class HireWorkersMinimumWageTest {
         int[] quality = {100, 200, 300, 400, 500};
         int[] wage = {1000, 2000, 3000, 4000, 5000};
         int K = 3;
-        double expected = 8000.0; // Calculated based on given workers and K
-        assertEquals(expected, app.minCostToHireWorkers(quality, wage, K));
+        assertEquals(6000.0, app.minCostToHireWorkers(quality, wage, K));
     }
 
     @Test
@@ -239,7 +237,6 @@ class HireWorkersMinimumWageTest {
         int[] quality = {1, 2, 3};
         int[] wage = {1, 2, 3};
         int K = 2;
-        double expected = 3.5; // Calculated based on given workers and K with precision
-        assertEquals(expected, app.minCostToHireWorkers(quality, wage, K), 1e-6); // Tolerance for floating point comparison
+        assertEquals(3.0, app.minCostToHireWorkers(quality, wage, K), 1e-6); // Tolerance for floating point comparison
     }
 }

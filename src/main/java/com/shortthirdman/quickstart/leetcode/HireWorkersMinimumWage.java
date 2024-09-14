@@ -23,6 +23,20 @@ public class HireWorkersMinimumWage {
             throw new IllegalArgumentException("Wages and qualities can not be empty");
         }
 
+        if (K > quality.length) {
+            throw new IllegalArgumentException("K cannot be greater than the number of available workers");
+        }
+
+        if (quality.length != wage.length) {
+            throw new IllegalArgumentException("Mismatched quality and wage for workers");
+        }
+
+        boolean isNegativeWage = Arrays.stream(wage).boxed().anyMatch(w -> w < 0);
+        boolean isNegativeQuality = Arrays.stream(quality).boxed().anyMatch(q -> q < 0);
+        if (isNegativeQuality || isNegativeWage) {
+            throw new IllegalArgumentException("Wage or quality for worker can not be negative");
+        }
+
         int N = quality.length;
 
         // Create an array of Worker objects

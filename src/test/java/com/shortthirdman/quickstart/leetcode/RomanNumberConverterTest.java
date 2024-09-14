@@ -24,7 +24,7 @@ class RomanNumberConverterTest {
     public void testIntegerToRoman() {
         assertEquals("I", app.integerToRoman(1));
         assertEquals("III", app.integerToRoman(3));
-        assertNotEquals("IV", app.integerToRoman(4));
+        assertEquals("IV", app.integerToRoman(4));
         assertEquals("V", app.integerToRoman(5));
         assertEquals("IX", app.integerToRoman(9));
         assertEquals("X", app.integerToRoman(10));
@@ -37,11 +37,6 @@ class RomanNumberConverterTest {
         assertEquals("CM", app.integerToRoman(900));
         assertEquals("M", app.integerToRoman(1000));
         assertEquals("MMMCMXCIX", app.integerToRoman(3999));
-    }
-
-    @Test
-    public void testIntegerToRoman_NullInput() {
-        assertThrows(NullPointerException.class, () -> app.integerToRoman(null));
     }
 
     @Test
