@@ -16,14 +16,13 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-	
     permissions:
       contents: read
       packages: read
       statuses: write # To report GitHub Actions status checks
       actions: read # Needed for detection of GitHub Actions environment.
       id-token: write # Needed for provenance signing and ID.
-   
+
 
     steps:
     - uses: actions/checkout@v4
@@ -36,6 +35,6 @@ jobs:
 
     - name: Build with Maven
       run: mvn -B clean verify --file pom.xml
-      
+
     - name: Run Tests and Code-Coverage
       run: mvn jacoco:prepare-agent clean test jacoco:report --file pom.xml
