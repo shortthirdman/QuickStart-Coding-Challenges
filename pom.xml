@@ -167,6 +167,9 @@
 		    <encoding>${project.build.sourceEncoding}</encoding>
 		    <reportFormat>brief</reportFormat>
             <printSummary>true</printSummary>
+			<excludes>
+			  <exclude>*com.shortthirdman.quickstart.common.*</exclude>
+			</excludes>
             <properties>
               <configurationParameters>
                   junit.jupiter.extensions.autodetection.enabled = true
