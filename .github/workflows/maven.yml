@@ -43,6 +43,3 @@ jobs:
     
     - name: Submit Dependency Snapshot
       uses: advanced-security/maven-dependency-submission-action@v4
-    
-    # - name: Release source and test archives
-      # run: mvn -B clean verify --file pom.xml -Prelease
