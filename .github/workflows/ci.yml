@@ -16,8 +16,15 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-release:
+  maven-build:
+    name: Java CI with Maven
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: read
+      statuses: write # To report GitHub Actions status checks
+      actions: read # Needed for detection of GitHub Actions environment.
+      id-token: write # Needed for provenance signing and ID.
     steps:
       - name: Checkout sources
         uses: actions/checkout@v3
@@ -30,7 +37,10 @@ jobs:
           cache: maven
 
       - name: Build, Package and Test
-        run: mvn jacoco:prepare-agent clean test package surefire-report:report jacoco:report -P release
+        run: mvn jacoco:prepare-agent clean test package surefire-report:report jacoco:report
+        
+      - name: Submit Dependency Snapshot
+        uses: advanced-security/maven-dependency-submission-action@v4
 
       - name: Create staging artifacts
         run: |
@@ -38,7 +48,7 @@ jobs:
           echo "Create JaCoCo Report archive"
           zip -r jacoco-reports.zip target/site/jacoco && mv jacoco-reports.zip staging
           echo "Create SureFire HTML Report archive"
-          zip -r surefire-reports.zip target/reports && mv -surefire-reports.zip staging
+          zip -r surefire-reports.zip target/reports && mv surefire-reports.zip staging
 
       # - name: Create GitHub Release
       #   id: create-release
