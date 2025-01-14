@@ -16,6 +16,7 @@
 	<project.reporting.outputDirectory>target/reports</project.reporting.outputDirectory>
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
+	<buildtime.output.log>true</buildtime.output.log>
 	<junit-jupiter.version>5.10.2</junit-jupiter.version>
 	<commons-lang3.version>3.14.0</commons-lang3.version>
 	<lombok.version>1.18.32</lombok.version>
