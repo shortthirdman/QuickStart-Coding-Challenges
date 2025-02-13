@@ -49,12 +49,27 @@ public class CountDistinctSlices {
             throw new IllegalArgumentException("Each element in array should be between 0 and " + M);
         }
 
-        int distinctSlices = 0;
+        int[] lastSeen = new int[M + 1]; // To track the last occurrence of each element
+        int left = 0;
+        long distinctSlices = 0;
+        final int MOD = 1_000_000_007;
 
-        if (distinctSlices > 1_000_000_000) {
-            return 1_000_000_000;
+        // Traverse with the right pointer
+        for (int right = 0; right < N; right++) {
+            // If the current element has appeared before in the window, move 'left'
+            lastSeen[A[right]]++;
+
+            // Move the 'left' pointer until the slice [left, right] is distinct
+            while (lastSeen[A[right]] > 1) {
+                lastSeen[A[left]]--;
+                left++;
+            }
+
+            // Add the number of distinct slices ending at 'right'
+            distinctSlices = (distinctSlices + (right - left + 1)) % MOD;
         }
 
-        return distinctSlices;
+        // Return the result (casting to int)
+        return (int) distinctSlices;
     }
 }
