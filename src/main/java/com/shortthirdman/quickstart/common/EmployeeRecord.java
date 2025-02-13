@@ -9,13 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Employee {
+public class EmployeeRecord {
 
     private int id;
     private String name;
-    private int age;
-    private String gender;
-    private String department;
-    private int yearOfJoining;
-    private double salary;
 }

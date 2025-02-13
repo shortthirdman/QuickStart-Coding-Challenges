@@ -25,6 +25,7 @@ ext {
 	lombokVersion = '1.18.32'
 	assertjCoreVersion = '3.25.3'
 	junitPlatformVersion = '1.10.2'
+	instancioVersion = '5.2.1'
 }
 
 dependencies {
@@ -46,6 +47,7 @@ dependencies {
 
 	testImplementation "org.junit.platform:junit-platform-runner:$junitPlatformVersion"
 	testImplementation "org.junit.platform:junit-platform-suite-engine:$junitPlatformVersion"
+	testImplementation "org.instancio:instancio-junit:$instancioVersion"
 }
 
 test {
