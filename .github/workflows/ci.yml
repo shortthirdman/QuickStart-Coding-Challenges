@@ -6,11 +6,11 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Build and Release
+name: CI
 
 on:
   push:
-   branches: ['main']
+   branches: [ 'main' ]
   pull_request:
     branches: [ 'main' ]
   workflow_dispatch:
@@ -45,9 +45,9 @@ jobs:
         validate-wrappers: false
         add-job-summary-as-pr-comment: 'always'
         add-job-summary: 'always'
-      
-#    - name: Validate Gradle Wrapper
-#      uses: gradle/actions/wrapper-validation@v4
+
+    - name: Validate Gradle Wrapper
+      uses: gradle/actions/wrapper-validation@v4
 
     - name: Build with Gradle
       run: gradle build
@@ -56,8 +56,9 @@ jobs:
       uses: actions/upload-artifact@v4
       if: always()
       with:
-        name: build-reports
+        name: gradle-build-reports
         path: '**/build/reports/'
+        #compression-level: 9
 
   maven-build:
     name: Build with Maven
@@ -79,3 +80,11 @@ jobs:
 
       - name: Build, Package and Test
         run: mvn -B jacoco:prepare-agent clean test package surefire-report:report jacoco:report
+
+      - name: Upload build reports
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: maven-build-reports
+          path: '**/target/reports/'
+          #compression-level: 9
