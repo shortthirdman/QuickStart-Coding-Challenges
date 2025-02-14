@@ -7,7 +7,8 @@
   <groupId>com.shortthirdman</groupId>
   <artifactId>quickstart-challenges</artifactId>
   <version>1.0.0-SNAPSHOT</version>
-  <name>Quickstart-Challenges</name>
+  <name>quickstart-challenges</name>
+  <description>Quickstart Coding Challenges</description>
   <url>http://www.example.com</url>
 
   <properties>
@@ -16,12 +17,14 @@
 	<project.reporting.outputDirectory>target/reports</project.reporting.outputDirectory>
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
+	<buildtime.output.log>true</buildtime.output.log>
 	<junit-jupiter.version>5.10.2</junit-jupiter.version>
 	<commons-lang3.version>3.14.0</commons-lang3.version>
 	<lombok.version>1.18.32</lombok.version>
 	<gson.version>2.10.1</gson.version>
 	<assertj-core.version>3.25.3</assertj-core.version>
 	<jacoco.version>0.8.9</jacoco.version>
+    <instancio.version>5.2.1</instancio.version>
   </properties>
 
   <dependencies>
@@ -86,6 +89,13 @@
       <version>1.10.2</version>
       <scope>test</scope>
     </dependency>
+
+    <dependency>
+      <groupId>org.instancio</groupId>
+      <artifactId>instancio-junit</artifactId>
+      <version>${instancio.version}</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
   
   <dependencyManagement>
@@ -102,7 +112,7 @@
 
   <profiles>
       <profile>
-          <id>release</id>
+          <id>ci</id>
           <activation>
               <activeByDefault>false</activeByDefault>
           </activation>
@@ -124,6 +134,7 @@
                               <goals>
                                   <goal>jar-no-fork</goal>
                                   <goal>test-jar-no-fork</goal>
+                                  <goal>aggregate</goal>
                               </goals>
                           </execution>
                       </executions>
@@ -136,6 +147,24 @@
   <build>
     <pluginManagement>
       <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-report-plugin</artifactId>
+          <version>3.5.0</version>
+          <configuration>
+              <showSuccess>true</showSuccess>
+              <linkXRef>false</linkXRef>
+          </configuration>
+          <executions>
+              <execution>
+                  <id>generate-surefire-reports</id>
+                  <goals>
+                      <goal>report</goal>
+                  </goals>
+                  <phase>test</phase>
+              </execution>
+          </executions>
+        </plugin>
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.13.0</version>
@@ -163,10 +192,19 @@
         <plugin>
           <artifactId>maven-surefire-plugin</artifactId>
           <version>2.22.2</version>
+          <executions>
+            <execution>
+
+            </execution>
+          </executions>
 		  <configuration>
 		    <encoding>${project.build.sourceEncoding}</encoding>
 		    <reportFormat>brief</reportFormat>
             <printSummary>true</printSummary>
+            <detail>true</detail>
+			<excludes>
+			  <exclude>*com.shortthirdman.quickstart.common.*</exclude>
+			</excludes>
             <properties>
               <configurationParameters>
                   junit.jupiter.extensions.autodetection.enabled = true
@@ -182,6 +220,16 @@
           <version>3.5.0</version>
           <configuration>
               <threadCount>10</threadCount>
+              <printSummary>true</printSummary>
+              <reportFormat>plain</reportFormat>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jxr-plugin</artifactId>
+          <version>3.3.0</version>
+          <configuration>
+            <docTitle>${project.description}</docTitle>
           </configuration>
         </plugin>
         <plugin>
@@ -191,7 +239,10 @@
           <configuration>
 <!--              <dataFile>${project.build.directory}/jacoco.exec</dataFile>-->
 <!--              <outputDirectory>${project.reporting.outputDirectory}/jacocoHtml</outputDirectory>-->
-              <title>${project.name} ${project.version}</title>
+              <title>${project.description} ${project.version}</title>
+              <excludes>
+                  <exclude>*com.shortthirdman.quickstart.common.*</exclude>
+              </excludes>
           </configuration>
           <executions>
               <execution>

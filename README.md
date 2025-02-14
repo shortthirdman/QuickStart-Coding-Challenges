@@ -1,11 +1,8 @@
-# QuickStart-Coding-Challenges
-
-Quickstart Coding Challenges
-
+# Quickstart Coding Challenges
 
 [![Java CI with Maven](https://github.com/shortthirdman/QuickStart-Coding-Challenges/actions/workflows/maven.yml/badge.svg?event=workflow_dispatch)](https://github.com/shortthirdman/QuickStart-Coding-Challenges/actions/workflows/maven.yml)
 
-![GitHub commit activity](https://img.shields.io/github/commit-activity/w/shortthirdman/QuickStart-Coding-Challenges)	![GitHub](https://img.shields.io/github/license/shortthirdman/QuickStart-Coding-Challenges)	![GitHub last commit](https://img.shields.io/github/last-commit/shortthirdman/QuickStart-Coding-Challenges)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/w/shortthirdman/QuickStart-Coding-Challenges)	![GitHub](https://img.shields.io/github/license/shortthirdman/QuickStart-Coding-Challenges)	![GitHub last commit](https://img.shields.io/github/last-commit/shortthirdman/QuickStart-Coding-Challenges)	![Maintenance](https://img.shields.io/maintenance/yes/2024)
 
 All Java solutions for various challenges presented during interviews for software development positions.
 
@@ -16,16 +13,23 @@ All Java solutions for various challenges presented during interviews for softwa
 
 ## Requirements
 
-- Apache Maven 3.9.x
-- Java 21
-- JetBrains IntelliJ IDEA (Community/Ultimate)
+- [Apache Maven 3.9.x](https://maven.apache.org/)
+- [OpenJDK/Oracle Java 21](https://www.oracle.com/java/technologies/downloads/)
+- [JetBrains IntelliJ IDEA (Community/Ultimate)](https://www.jetbrains.com/idea/)
 
 
 ## Run, Test and Code Coverage
 
-`mvn clean install test`
+```shell
+mvn jacoco:prepare-agent clean test surefire-report:report jacoco:report
+```
 
-`mvn jacoco:prepare-agent clean test jacoco:report`
+## Release and Tag
+
+```shell
+mvn jacoco:prepare-agent clean test surefire-report:report jacoco:report -Prelease
+```
+
 
 ## Contributing
 

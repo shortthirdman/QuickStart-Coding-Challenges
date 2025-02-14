@@ -1,5 +1,7 @@
 package com.shortthirdman.quickstart.leetcode;
 
+import java.util.Objects;
+
 /**
  * A password string, pwd, consists of binary characters (0s and 1s). A cyber-security expert is trying to determine the
  * minimum number of changes required to make the password secure.
@@ -18,8 +20,12 @@ public class MinimumBinaryFlips {
 	 * @param text the binary string
 	 * @return the minimum number of flips to make the division possible 
 	 */
-	public Integer getMinFlips(String text) {
+	public int getMinFlips(String text) {
 		int minFlips = Integer.MAX_VALUE;
+
+        if (Objects.isNull(text)) {
+            throw new NullPointerException("Input text password can not be null");
+        }
 
         int len = text.length();
 
@@ -41,11 +47,11 @@ public class MinimumBinaryFlips {
             minFlips = Math.min(minFlips, Math.min(flipsToZeroPart1 + flipsToOnePart2, flipsToOnePart1 + flipsToZeroPart2));
         }
 
-        return Integer.valueOf(minFlips);
+        return minFlips;
 	}
 	
 	
-	public int flipsToMakeAllSame(String str, char targetChar) {
+	private int flipsToMakeAllSame(String str, char targetChar) {
         int flips = 0;
         for (char c : str.toCharArray()) {
             if (c != targetChar) {
