@@ -17,15 +17,20 @@ import java.util.stream.IntStream;
  */
 public class DominantStringAnalyzer {
 
+    /**
+     * @param s the input text
+     * @return the count or number of dominant string
+     */
     public long getDominantStringCount(String s) {
         long count = 0;
         int n = s.length();
+        var lowercaseText = s.toLowerCase();
 
         count = IntStream.range(2, n + 1)
                 .filter(len -> len % 2 == 0)  // Only consider even lengths
                 .mapToLong(len ->
                         IntStream.range(0, n - len + 1)
-                                .mapToObj(i -> s.substring(i, i + len))
+                                .mapToObj(i -> lowercaseText.substring(i, i + len))
                                 .filter(substring -> isDominant(substring, len))
                                 .count()
                 ).sum();
@@ -36,7 +41,12 @@ public class DominantStringAnalyzer {
     private boolean isDominant(String substring, int len) {
         int[] frequency = new int[10];
         substring.chars()
-                .forEach(c -> frequency[c - 'a']++);
+                .forEach(c -> {
+                    // Ensure the character is between 'a' and 'z' before updating frequency
+                    if (c >= 'a' && c <= 'z') {
+                        frequency[c - 'a']++;
+                    }
+                });
 
         int halfLength = len / 2;
         return Arrays.stream(frequency)

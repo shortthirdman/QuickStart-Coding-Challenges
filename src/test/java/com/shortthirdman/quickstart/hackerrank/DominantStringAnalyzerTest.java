@@ -1,10 +1,10 @@
 package com.shortthirdman.quickstart.hackerrank;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class DominantStringAnalyzerTest {
 
@@ -15,92 +15,74 @@ class DominantStringAnalyzerTest {
         app = new DominantStringAnalyzer();
     }
 
-    @AfterEach
-    void tearDown() {
+    @Test
+    void testEmptyString() {
+        assertEquals(0, app.getDominantStringCount(""));
     }
 
     @Test
-    void testDominantStringCount_withDominantSubstrings() {
-        String input = "aabb";
-        long result = app.getDominantStringCount(input);
-        assertEquals(1, result, "There should be one dominant substring.");
+    void testSingleCharacter() {
+        assertEquals(0, app.getDominantStringCount("a"));
     }
 
-    // Positive Test Case 2: String with multiple dominant substrings
     @Test
-    void testDominantStringCount_multipleDominantSubstrings() {
-        String input = "abccba";
-        long result = app.getDominantStringCount(input);
-        assertEquals(2, result, "There should be two dominant substrings.");
+    void testTwoSameCharacters() {
+        assertEquals(0, app.getDominantStringCount("aa"));
     }
 
-    // Positive Test Case 3: String that contains only dominant substrings
     @Test
-    void testDominantStringCount_allDominant() {
-        String input = "aabbcc";
-        long result = app.getDominantStringCount(input);
-        assertEquals(6, result, "There should be 6 dominant substrings.");
+    void testTwoDifferentCharacters() {
+        assertEquals(1, app.getDominantStringCount("ab"));
     }
 
-    // Negative Test Case 1: No dominant substrings
     @Test
-    void testDominantStringCount_noDominantSubstrings() {
-        String input = "abcd";
-        long result = app.getDominantStringCount(input);
-        assertEquals(0, result, "There should be no dominant substrings.");
+    void testFourSameCharacters() {
+        assertEquals(0, app.getDominantStringCount("aaaa"));
     }
 
-    // Edge Case 1: Empty string
     @Test
-    void testDominantStringCount_emptyString() {
-        String input = "";
-        long result = app.getDominantStringCount(input);
-        assertEquals(0, result, "An empty string should have 0 dominant substrings.");
+    void testTwoPairsDominantSubstrings() {
+        assertEquals(2, app.getDominantStringCount("aabb"));
     }
 
-    // Edge Case 2: Single character string
     @Test
-    void testDominantStringCount_singleCharacterString() {
-        String input = "a";
-        long result = app.getDominantStringCount(input);
-        assertEquals(0, result, "A single character string should have 0 dominant substrings.");
+    void testMixedCaseInput() {
+        assertEquals(2, app.getDominantStringCount("AaBb"));
     }
 
-    // Edge Case 3: String of length 1 (no even length substrings)
     @Test
-    void testDominantStringCount_stringOfLength1() {
-        String input = "a";
-        long result = app.getDominantStringCount(input);
-        assertEquals(0, result, "A string of length 1 should have no even-length dominant substrings.");
+    void testNonLetterCharactersIncluded() {
+        assertEquals(4, app.getDominantStringCount("a1a1"));
     }
 
-    // Edge Case 4: String with no even-length substrings that are dominant
     @Test
-    void testDominantStringCount_noDominantEvenLengthSubstrings() {
-        String input = "xyz";
-        long result = app.getDominantStringCount(input);
-        assertEquals(0, result, "There should be no dominant substrings in a string of length 3.");
+    void testRepeatingPattern() {
+        assertEquals(9, app.getDominantStringCount("ababab"));
     }
 
-    // Edge Case 5: Long string with no dominant substrings
     @Test
-    void testDominantStringCount_longStringNoDominantSubstrings() {
-        String input = "abcdefgh";
-        long result = app.getDominantStringCount(input);
-        assertEquals(0, result, "There should be no dominant substrings in this string.");
+    void testOddLengthInput() {
+        assertEquals(2, app.getDominantStringCount("abc"));
     }
 
-    // Exception Handling Test: Null string should throw NullPointerException
     @Test
-    void testDominantStringCount_nullString() {
-        String input = null;
-        assertThrows(NullPointerException.class, () -> app.getDominantStringCount(input), "Null input should throw NullPointerException.");
+    void testPalindromeEvenLength() {
+        assertEquals(3, app.getDominantStringCount("abba"));
     }
 
-    // Exception Handling Test: String with invalid characters (optional based on assumptions)
     @Test
-    void testDominantStringCount_invalidCharacters() {
-        String input = "abc123"; // Assuming we only deal with lowercase letters
-        assertThrows(IllegalArgumentException.class, () -> app.getDominantStringCount(input), "Invalid input with non-lowercase characters should throw IllegalArgumentException.");
+    void testAllUniqueCharactersEvenLength() {
+        assertEquals(3, app.getDominantStringCount("abcd"));
+    }
+
+    @Test
+    void testLongerStringWithMultipleDominantSubstrings() {
+        assertEquals(10, app.getDominantStringCount("aabbaabb"));
+    }
+
+    @Test
+    void testExactHalfMultipleCharacters() {
+        assertNotEquals(1, app.getDominantStringCount("aaabbb"));
+        assertEquals(3, app.getDominantStringCount("aaabbb"));
     }
 }

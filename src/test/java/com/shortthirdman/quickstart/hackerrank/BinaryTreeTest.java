@@ -366,6 +366,16 @@ class BinaryTreeTest {
         root.right.left = new TreeNode(4);
         root.right.right = new TreeNode(3);
 
+        assertTrue(tree.isBalanced(root), "The tree should be balanced.");
+    }
+
+    @Test
+    void isBalanced_testUnbalancedTree() {
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.left.left = new TreeNode(3);
+        root.left.left.left = new TreeNode(4);
+
         assertFalse(tree.isBalanced(root), "The tree should not be balanced.");
     }
 
@@ -404,6 +414,15 @@ class BinaryTreeTest {
         root.left = new TreeNode(2);
         root.right = new TreeNode(3);
         root.right.right = new TreeNode(4);
+
+        assertTrue(tree.isBalanced(root), "The two-level tree should be balanced.");
+    }
+
+    @Test
+    void isBalanced_testUnbalancedTwoLevelTree() {
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.left.left = new TreeNode(3);
 
         assertFalse(tree.isBalanced(root), "The two-level tree should not be balanced.");
     }

@@ -2,9 +2,7 @@ package com.shortthirdman.quickstart.hackerrank;
 
 import com.shortthirdman.quickstart.common.TreeNode;
 
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * Binary Tree
@@ -77,36 +75,51 @@ public class BinaryTree {
             return true; // An empty tree is balanced
         }
 
-        LinkedList<TreeNode> stack = new LinkedList<>();
-        LinkedList<Integer> heights = new LinkedList<>();
+        // Stack to simulate recursion
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        // Map to store the height of each node
+        Map<TreeNode, Integer> heights = new HashMap<>();
+
         stack.push(root);
 
         while (!stack.isEmpty()) {
-            TreeNode current = stack.pop();
+            TreeNode node = stack.peek();
 
-            if (current != null) {
-                heights.push(0); // Placeholder for height
-                stack.push(current); // Push the current node again to process after children
-                stack.push(current.left);
-                stack.push(current.right);
+            // If the node has not been processed yet, push its children onto the stack
+            if (!heights.containsKey(node)) {
+                if (node.right != null) {
+                    stack.push(node.right);
+                }
+                if (node.left != null) {
+                    stack.push(node.left);
+                }
+                // Mark the node as processed by adding it to the heights map
+                heights.put(node, 0);
             } else {
-                // Calculate heights for children
-                int leftHeight = (heights.isEmpty() ? 0 : heights.pop());
-                int rightHeight = (heights.isEmpty() ? 0 : heights.pop());
-                int currentHeight = Math.max(leftHeight, rightHeight) + 1;
+                // If the node has been processed, calculate its height
+                stack.pop(); // Remove the node from the stack
+
+                int leftHeight = heights.getOrDefault(node.left, 0);
+                int rightHeight = heights.getOrDefault(node.right, 0);
 
                 // Check if the current node is balanced
                 if (Math.abs(leftHeight - rightHeight) > 1) {
-                    return false; // Not balanced
+                    return false; // Tree is unbalanced
                 }
 
-                heights.push(currentHeight); // Push back the height
+                // Calculate the height of the current node
+                int height = Math.max(leftHeight, rightHeight) + 1;
+                heights.put(node, height);
             }
         }
 
         return true; // If all nodes are balanced
     }
 
+    /**
+     * @param root the root tree node
+     * @return the depth of the tree
+     */
     public int minimumDepth(TreeNode root) {
         if (root == null) return 0;
 

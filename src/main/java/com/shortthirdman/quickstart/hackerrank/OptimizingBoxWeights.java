@@ -48,8 +48,7 @@ public class OptimizingBoxWeights {
 
             // Stop When Sum of List A is greater than remaining
             if (setASum > totalRemainingSum) {
-                while (setASum - setA.getFirst() + stack.peek() > totalRemainingSum + setA.getFirst() - stack.peek()) {
-
+                while (!stack.isEmpty() && setASum - setA.getFirst() + stack.peek() > totalRemainingSum + setA.getFirst() - stack.peek()) {
                     int lastItem = setA.getFirst();
                     Integer newMin = stack.pop();
                     setA.removeFirst();
