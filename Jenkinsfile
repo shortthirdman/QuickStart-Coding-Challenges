@@ -1,40 +1,90 @@
 pipeline {
     agent any
-    options {
-        skipStagesAfterUnstable()
+
+    environment {
+        // Define the required versions for Gradle and Maven
+        GRADLE_VERSION = '8.10.2'  // Update this to the desired version
+        MAVEN_VERSION = '3.9.6'  // Update this to the desired version
+        GIT_TAG = "v${env.BUILD_NUMBER}"  // Use Jenkins Build number as version for the tag
     }
-    tools {
-        maven 'maven'
-        jdk 'jdk21'
-    }
+
     stages {
-        stage('Verify') {
+        stage('Checkout') {
             steps {
-                sh 'mvn --version'
-                sh 'java --version'
-            }
-        }
-        stage('Build') {
-            steps {
-                sh 'mvn -DskipTests clean install -B --no-transfer-progress'
+                // Checkout the code from the repository
+                checkout scm
             }
         }
 
-        stage('Test') {
+        stage('Set Up Gradle') {
             steps {
-                sh 'mvn test'
-            }
-            post {
-                always {
-                    junit 'target/surefire-reports/*.xml'
+                script {
+                    // Ensure the correct Gradle version is installed
+                    sh "sdk install gradle ${GRADLE_VERSION}"
                 }
             }
         }
 
-        stage('Deliver') {
+        stage('Set Up Maven') {
             steps {
-                sh './jenkins/scripts/deliver.sh'
+                script {
+                    // Ensure the correct Maven version is installed
+                    sh "sdk install maven ${MAVEN_VERSION}"
+                }
             }
+        }
+
+        stage('Build with Gradle') {
+            steps {
+                script {
+                    // Run the Gradle build (assuming you have a build.gradle file in your project)
+                    sh './gradlew clean build'
+                }
+            }
+        }
+
+        stage('Build with Maven') {
+            steps {
+                script {
+                    // Run the Maven build (assuming you have a pom.xml file in your project)
+                    sh 'mvn clean install'
+                }
+            }
+        }
+
+        stage('Create Git Tag') {
+            steps {
+                script {
+                    // Create and push the Git tag
+                    sh "git tag ${GIT_TAG}"
+                    sh "git push origin ${GIT_TAG}"
+                }
+            }
+        }
+
+        stage('Create Release Assets') {
+            steps {
+                script {
+                    // Assuming you want to upload the artifacts from build as release assets
+                    def gradleArtifact = "build/libs/*.jar"  // Replace with your actual build artifact location
+                    def mavenArtifact = "target/*.jar"  // Replace with your actual Maven build artifact location
+
+                    // Example: Upload to a custom release system (GitHub, GitLab, etc.)
+                    // This can vary based on the integration or plugin used. Below is a general idea.
+
+                    // GitHub CLI example
+                    sh "gh release create ${GIT_TAG} ${gradleArtifact} ${mavenArtifact} --title 'Release ${GIT_TAG}'"
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "Build and release process completed successfully!"
+        }
+        failure {
+            echo "The build or release process failed."
         }
     }
 }
