@@ -1,6 +1,10 @@
 # Quickstart Coding Challenges
 
-[![Java CI with Maven](https://github.com/shortthirdman/QuickStart-Coding-Challenges/actions/workflows/maven.yml/badge.svg?event=workflow_dispatch)](https://github.com/shortthirdman/QuickStart-Coding-Challenges/actions/workflows/maven.yml)
+[![Java CI with Maven/Gradle](https://github.com/shortthirdman/QuickStart-Coding-Challenges/actions/workflows/ci.yml/badge.svg?event=workflow_dispatch)](https://github.com/shortthirdman/QuickStart-Coding-Challenges/actions/workflows/ci.yml)
+
+[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/10415/badge)](https://www.bestpractices.dev/projects/10415)
+
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/shortthirdman/QuickStart-Coding-Challenges)	![GitHub repo size](https://img.shields.io/github/repo-size/shortthirdman/QuickStart-Coding-Challenges)
 
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/w/shortthirdman/QuickStart-Coding-Challenges)	![GitHub](https://img.shields.io/github/license/shortthirdman/QuickStart-Coding-Challenges)	![GitHub last commit](https://img.shields.io/github/last-commit/shortthirdman/QuickStart-Coding-Challenges)	![Maintenance](https://img.shields.io/maintenance/yes/2024)
 
