@@ -83,7 +83,6 @@ jacocoTestReport {
 	description = "Generate Jacoco coverage reports after running tests."
     dependsOn test // tests are required to run before generating the report
 	reports {
-		xml.enabled = true
         xml.required = true
         csv.required = true
 		html.enabled = true
