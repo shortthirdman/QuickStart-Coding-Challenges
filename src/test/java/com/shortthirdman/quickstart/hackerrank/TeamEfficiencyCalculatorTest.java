@@ -26,7 +26,7 @@ class TeamEfficiencyCalculatorTest {
     public void testValidInput() {
         // Test with a valid input where pairs satisfy the condition
         List<Integer> skill = Arrays.asList(1, 2, 3, 4);
-        long expected = 14; // (1 * 4) + (2 * 3) = 14
+        long expected = 10; // (1 * 4) + (2 * 3) = 10
         assertEquals(expected, app.getTotalEfficiency(skill));
     }
 
@@ -52,7 +52,7 @@ class TeamEfficiencyCalculatorTest {
     @Test
     public void testInvalidPairing() {
         // Test where pairs cannot form the same sum
-        List<Integer> skill = Arrays.asList(1, 2, 5, 6);
+        List<Integer> skill = Arrays.asList(1, 2, 3, 6);
         assertEquals(-1, app.getTotalEfficiency(skill));
     }
 
@@ -68,7 +68,7 @@ class TeamEfficiencyCalculatorTest {
     public void testNegativeSkills() {
         // Test with negative skill values
         List<Integer> skill = Arrays.asList(-1, -2, -3, -4);
-        long expected = 14; // (-4 * -1) + (-3 * -2) = 14
+        long expected = 10; // (-4 * -1) + (-3 * -2) = 10
         assertEquals(expected, app.getTotalEfficiency(skill));
     }
 
@@ -84,6 +84,7 @@ class TeamEfficiencyCalculatorTest {
         // Test with a large input size
         List<Integer> skill = Arrays.asList(10, 20, 30, 40, 50, 60, 70, 80);
         long expected = 2200; // For sorted list, pairing and summing the products satisfies
-        assertEquals(expected, app.getTotalEfficiency(skill));
+        assertNotEquals(expected, app.getTotalEfficiency(skill));
+        assertEquals(6000, app.getTotalEfficiency(skill));
     }
 }
