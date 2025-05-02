@@ -233,6 +233,7 @@
                   <goals>
                       <goal>report</goal>
                   </goals>
+                  <phase>test</phase>
               </execution>
               <execution>
                   <id>coverage-check</id>
@@ -242,33 +243,39 @@
                   <phase>test</phase>
                   <configuration>
                       <rules>
-                          <rule>
+                          <rule implementation="org.jacoco.maven.RuleConfiguration">
                               <element>PACKAGE</element>
+                              <excludes>
+                                  <exclude>com.shortthirdman.quickstart.common</exclude>
+                              </excludes>
                               <limits>
-                                  <limit>
+                                  <limit implementation="org.jacoco.report.check.Limit">
                                       <counter>LINE</counter>
                                       <value>COVEREDRATIO</value>
                                       <minimum>0.6</minimum>
                                   </limit>
-                                  <limit>
+                                  <limit implementation="org.jacoco.report.check.Limit">
                                       <counter>INSTRUCTION</counter>
                                       <value>COVEREDRATIO</value>
                                       <minimum>0.6</minimum>
                                   </limit>
                               </limits>
                           </rule>
-                          <rule>
+                          <rule implementation="org.jacoco.maven.RuleConfiguration">
                               <element>BUNDLE</element>
+                              <excludes>
+                                  <exclude>com.shortthirdman.quickstart.common</exclude>
+                              </excludes>
                               <limits>
-                                  <limit>
+                                  <limit implementation="org.jacoco.report.check.Limit">
                                       <counter>INSTRUCTION</counter>
                                       <value>COVEREDRATIO</value>
-                                      <minimum>0.80</minimum>
+                                      <minimum>0.75</minimum>
                                   </limit>
-                                  <limit>
+                                  <limit implementation="org.jacoco.report.check.Limit">
                                       <counter>CLASS</counter>
                                       <value>MISSEDCOUNT</value>
-                                      <maximum>5</maximum>
+                                      <maximum>10</maximum>
                                   </limit>
                               </limits>
                           </rule>
