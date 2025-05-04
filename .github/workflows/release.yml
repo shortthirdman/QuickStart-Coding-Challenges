@@ -74,7 +74,7 @@ jobs:
       - name: Upload Release Assets
         id: upload_release_assets
         uses: softprops/action-gh-release@v2
-        if: github.ref_type == 'tag'
+       # if: github.ref_type == 'tag'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -86,14 +86,13 @@ jobs:
           files: |
             ${{ github.workspace }}/target/primekit-challenges-${{ github.event.inputs.releaseVersion }}.jar
             ${{ github.workspace }}/target/primekit-challenges-${{ github.event.inputs.releaseVersion }}-sources.jar
-            ${{ github.workspace }}/target/primekit-challenges-${{ github.event.inputs.releaseVersion }}-javadoc.jar
             ${{ github.workspace }}/target/primekit-challenges-${{ github.event.inputs.releaseVersion }}-test-sources.jar
 
       - name: Push changes
         run: |
           set -e
           git add pom.xml
-          git commit -m ""
+          git commit -m "Prepare for next development and release"
           git push origin main
           git push origin --tags
               
