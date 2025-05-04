@@ -31,7 +31,11 @@ mvn jacoco:prepare-agent clean test surefire-report:report jacoco:report
 ## Release and Tag
 
 ```shell
-mvn jacoco:prepare-agent clean test surefire-report:report jacoco:report -Prelease
+mvn release:update-versions -DdevelopmentVersion=1.0.1-SNAPSHOT
+
+mvn release:prepare -Dtag=quickstart-challenges-1.0.0 -DreleaseVersion=1.0.0 -DdevelopmentVersion=1.0.1-SNAPSHOT -DdryRun=true
+
+mvn release:perform -DconnectionUrl="scm:git:git@github.com:shortthirdman/Quickstart-Coding-Challenges.git" -Dtag=1.0.0 -DdryRun=true
 ```
 
 

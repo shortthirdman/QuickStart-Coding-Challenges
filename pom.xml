@@ -13,6 +13,7 @@
 
   <properties>
 	<java.version>21</java.version>
+	<releaseVersion>${project.version}</releaseVersion>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	<project.reporting.outputDirectory>target/reports</project.reporting.outputDirectory>
     <maven.compiler.source>${java.version}</maven.compiler.source>
@@ -98,6 +99,8 @@
     </dependency>
   </dependencies>
   
+  
+  
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -110,42 +113,46 @@
     </dependencies>
   </dependencyManagement>
 
-  <profiles>
-      <profile>
-          <id>ci</id>
-          <activation>
-              <activeByDefault>false</activeByDefault>
-          </activation>
-          <build>
-              <plugins>
-                  <plugin>
-                      <groupId>org.apache.maven.plugins</groupId>
-                      <artifactId>maven-source-plugin</artifactId>
-                      <version>3.3.1</version>
-                      <configuration>
-                          <outputDirectory>${basedir}/target</outputDirectory>
-                          <finalName>${project.artifactId}-${project.version}</finalName>
-                          <attach>true</attach>
-                      </configuration>
-                      <executions>
-                          <execution>
-                              <id>attach-sources</id>
-                              <phase>install</phase>
-                              <goals>
-                                  <goal>jar-no-fork</goal>
-                                  <goal>test-jar-no-fork</goal>
-                                  <goal>aggregate</goal>
-                              </goals>
-                          </execution>
-                      </executions>
-                  </plugin>
-              </plugins>
-          </build>
-      </profile>
-  </profiles>
-
   <build>
-      <plugins>
+	<finalName>${project.artifactId}-${releaseVersion}</finalName>
+	<plugins>
+	    <plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-release-plugin</artifactId>
+			<version>3.1.1</version>
+			<configuration>
+			  <preparationGoals>clean install</preparationGoals>
+			  <tagNameFormat>v@{releaseVersion}</tagNameFormat>
+			  <projectVersionPolicyId>SemVerVersionPolicy</projectVersionPolicyId>
+			  <checkModificationExcludes>
+				<checkModificationExclude>pom.xml</checkModificationExclude>
+			  </checkModificationExcludes>
+			  <pushChanges>false</pushChanges>
+			  <localCheckout>true</localCheckout>
+			  <goals>clean install</goals>
+			</configuration>
+		</plugin>
+	    <plugin>
+		  <groupId>org.apache.maven.plugins</groupId>
+		  <artifactId>maven-source-plugin</artifactId>
+		  <version>3.3.1</version>
+		  <configuration>
+			<outputDirectory>${basedir}/target</outputDirectory>
+			<finalName>${project.artifactId}-${releaseVersion}</finalName>
+			<attach>true</attach>
+		  </configuration>
+		  <executions>
+			<execution>
+			  <id>attach-sources</id>
+			  <phase>install</phase>
+			  <goals>
+				<goal>jar-no-fork</goal>
+				<goal>test-jar-no-fork</goal>
+				<goal>aggregate</goal>
+			  </goals>
+			</execution>
+		  </executions>
+	    </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-surefire-report-plugin</artifactId>
@@ -214,7 +221,7 @@
           <configuration>
 <!--              <dataFile>${project.build.directory}/jacoco.exec</dataFile>-->
 <!--              <outputDirectory>${project.reporting.outputDirectory}/jacocoHtml</outputDirectory>-->
-              <title>${project.description} ${project.version}</title>
+              <title>${project.description} ${releaseVersion}</title>
               <excludes>
                   <exclude>com/shortthirdman/quickstart/common/**/*.java</exclude>
               </excludes>
