@@ -60,23 +60,10 @@ jobs:
           mvn versions:set -DnewVersion=${{ github.event.inputs.developmentVersion }} -DgenerateBackupPoms=false
           mvn -B clean install -DreleaseVersion=${{ github.event.inputs.releaseVersion }}
 
-#      - name: Create GitHub Release
-#        id: create_release
-#        uses: actions/create-release@v1
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#        with:
-#          tag_name: ${{ github.ref }}
-#          release_name: Release ${{ github.ref }}
-#          draft: true
-#          prerelease: false
-
       - name: Upload Release Assets
         id: upload_release_assets
         uses: softprops/action-gh-release@v2
        # if: github.ref_type == 'tag'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           name: Release ${{ github.event.inputs.releaseVersion }}
           tag_name: ${{ github.event.inputs.releaseVersion }}
@@ -84,9 +71,9 @@ jobs:
           draft: true
           prerelease: false
           files: |
-            ${{ github.workspace }}/target/primekit-challenges-${{ github.event.inputs.releaseVersion }}.jar
-            ${{ github.workspace }}/target/primekit-challenges-${{ github.event.inputs.releaseVersion }}-sources.jar
-            ${{ github.workspace }}/target/primekit-challenges-${{ github.event.inputs.releaseVersion }}-test-sources.jar
+            ${{ github.workspace }}/target/quickstart-challenges-${{ github.event.inputs.releaseVersion }}.jar
+            ${{ github.workspace }}/target/quickstart-challenges-${{ github.event.inputs.releaseVersion }}-sources.jar
+            ${{ github.workspace }}/target/quickstart-challenges-${{ github.event.inputs.releaseVersion }}-test-sources.jar
 
       - name: Push changes
         run: |
