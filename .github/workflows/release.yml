@@ -1,0 +1,103 @@
+name: Maven Release
+
+run-name: Publish to ${{ inputs.deploy_target }} by @${{ github.actor }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      releaseVersion:
+        description: 'Release version'
+        required: true
+      developmentVersion:
+        description: 'Next development version'
+        required: true
+      deploy_target:
+        description: 'Deployable target'
+        required: true
+        type: string
+
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  packages: read
+  statuses: write # To report GitHub Actions status checks
+  actions: read # Needed for detection of GitHub Actions environment.
+  id-token: write # Needed for provenance signing and ID.
+  pull-requests: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get branch name
+        run: echo "Branch name is ${{ github.head_ref }}"
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+          architecture: x64
+
+      - name: Configure Git user
+        run: |
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+
+      - name: Prepare Release
+        run: |
+          set -e
+          mvn versions:set -DnewVersion=${{ github.event.inputs.developmentVersion }} -DgenerateBackupPoms=false
+          mvn -B clean install -DreleaseVersion=${{ github.event.inputs.releaseVersion }}
+
+#      - name: Create GitHub Release
+#        id: create_release
+#        uses: actions/create-release@v1
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          tag_name: ${{ github.ref }}
+#          release_name: Release ${{ github.ref }}
+#          draft: true
+#          prerelease: false
+
+      - name: Upload Release Assets
+        id: upload_release_assets
+        uses: softprops/action-gh-release@v2
+        if: github.ref_type == 'tag'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          name: Release ${{ github.event.inputs.releaseVersion }}
+          tag_name: ${{ github.event.inputs.releaseVersion }}
+          make_latest: 'true'
+          draft: true
+          prerelease: false
+          files: |
+            ${{ github.workspace }}/target/primekit-challenges-${{ github.event.inputs.releaseVersion }}.jar
+            ${{ github.workspace }}/target/primekit-challenges-${{ github.event.inputs.releaseVersion }}-sources.jar
+            ${{ github.workspace }}/target/primekit-challenges-${{ github.event.inputs.releaseVersion }}-javadoc.jar
+            ${{ github.workspace }}/target/primekit-challenges-${{ github.event.inputs.releaseVersion }}-test-sources.jar
+
+      - name: Push changes
+        run: |
+          set -e
+          git add pom.xml
+          git commit -m ""
+          git push origin main
+          git push origin --tags
+              
+      - name: View Release
+        run: gh release view
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
